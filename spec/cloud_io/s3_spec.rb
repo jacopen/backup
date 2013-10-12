@@ -396,7 +396,7 @@ describe CloudIO::S3 do
 
   end # describe '#delete'
 
-  describe '#connection' do
+  describe '#connection with region option' do
     let(:cloud_io) {
       CloudIO::S3.new(
         :access_key_id => 'my_access_key_id',
@@ -410,14 +410,39 @@ describe CloudIO::S3 do
         :provider               => 'AWS',
         :aws_access_key_id      => 'my_access_key_id',
         :aws_secret_access_key  => 'my_secret_access_key',
-        :region                 => 'my_region'
+        :region                 => 'my_region',
+        :endpoint               => nil
       ).returns(connection)
       connection.expects(:sync_clock).once
 
       expect( cloud_io.send(:connection) ).to be connection
       expect( cloud_io.send(:connection) ).to be connection
     end
-  end # describe '#connection'
+  end # describe '#connection with region option'
+
+  describe '#connection with endpoint option' do
+    let(:cloud_io) {
+      CloudIO::S3.new(
+        :access_key_id => 'my_access_key_id',
+        :secret_access_key => 'my_secret_access_key',
+        :endpoint => 'example.com'
+      )
+    }
+
+    it 'caches a connection' do
+      Fog::Storage.expects(:new).once.with(
+        :provider               => 'AWS',
+        :aws_access_key_id      => 'my_access_key_id',
+        :aws_secret_access_key  => 'my_secret_access_key',
+        :endpoint               => 'example.com',
+        :region                 => nil
+      ).returns(connection)
+      connection.expects(:sync_clock).once
+
+      expect( cloud_io.send(:connection) ).to be connection
+      expect( cloud_io.send(:connection) ).to be connection
+    end
+  end # describe '#connection with endpoint option'
 
   describe '#put_object' do
     let(:cloud_io) {

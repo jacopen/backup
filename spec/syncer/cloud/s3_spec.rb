@@ -153,6 +153,7 @@ describe Syncer::Cloud::S3 do
           :secret_access_key  => 'my_secret_access_key',
           :bucket             => 'my_bucket',
           :region             => nil,
+          :endpoint           => nil,
           :encryption         => nil,
           :storage_class      => :standard,
           :max_retries        => 10,

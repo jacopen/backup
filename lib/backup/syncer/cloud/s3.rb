@@ -20,6 +20,10 @@ module Backup
         attr_accessor :region
 
         ##
+        # Endpoint of the specified S3 bucket
+        attr_accessor :endpoint
+
+        ##
         # Encryption algorithm to use for Amazon Server-Side Encryption
         #
         # Supported values:
@@ -56,6 +60,7 @@ module Backup
             :secret_access_key  => secret_access_key,
             :bucket             => bucket,
             :region             => region,
+            :endpoint           => endpoint,
             :encryption         => encryption,
             :storage_class      => storage_class,
             :max_retries        => max_retries,

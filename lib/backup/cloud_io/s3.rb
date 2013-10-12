@@ -14,7 +14,7 @@ module Backup
       MAX_MULTIPART_SIZE  = 1024**4 * 5   # 5 TiB
 
       attr_reader :access_key_id, :secret_access_key, :region, :bucket,
-                  :chunk_size, :encryption, :storage_class
+                  :chunk_size, :encryption, :storage_class, :endpoint
 
       def initialize(options = {})
         super
@@ -22,6 +22,7 @@ module Backup
         @access_key_id      = options[:access_key_id]
         @secret_access_key  = options[:secret_access_key]
         @region             = options[:region]
+        @endpoint           = options[:endpoint]
         @bucket             = options[:bucket]
         @chunk_size         = options[:chunk_size]
         @encryption         = options[:encryption]
@@ -124,7 +125,8 @@ module Backup
             :provider               => 'AWS',
             :aws_access_key_id      => access_key_id,
             :aws_secret_access_key  => secret_access_key,
-            :region                 => region
+            :region                 => region,
+            :endpoint               => endpoint
           )
           conn.sync_clock
           conn

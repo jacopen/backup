@@ -62,6 +62,10 @@ module Backup
       # Default: :standard
       attr_accessor :storage_class
 
+      ##
+      # Endpoint of the specified S3 bucket
+      attr_accessor :endpoint
+      
       def initialize(model, storage_id = nil)
         super
 
@@ -82,6 +86,7 @@ module Backup
           :access_key_id      => access_key_id,
           :secret_access_key  => secret_access_key,
           :region             => region,
+          :endpoint           => endpoint,
           :bucket             => bucket,
           :encryption         => encryption,
           :storage_class      => storage_class,

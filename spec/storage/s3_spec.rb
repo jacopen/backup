@@ -189,6 +189,7 @@ describe Storage::S3 do
         :access_key_id      => 'my_access_key_id',
         :secret_access_key  => 'my_secret_access_key',
         :region             => nil,
+        :endpoint           => nil,
         :bucket             => 'my_bucket',
         :encryption         => nil,
         :storage_class      => :standard,
